@@ -25,3 +25,7 @@ If build folder is included:
 2) Run the executable `CanonicalTest.exe`
 
 ------- Build instructions for linux -------
+Was unable to test on Linux
+
+------ Build instructions for macOS --------
+Was unable to test on macOS
