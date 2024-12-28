@@ -111,7 +111,7 @@ std::vector<std::string> UbuntuImageFetcher::GetSupportedReleases() const
 			product.contains("supported") && product["supported"] == true)
 		{
 			// Adding release title to array
-			supportedReleases.push_back(product["release_title"].get<std::string>());
+			supportedReleases.push_back(product["release"].get<std::string>());
 		}
 	}
 
