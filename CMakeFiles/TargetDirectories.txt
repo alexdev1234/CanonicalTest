@@ -1,5 +1,0 @@
-C:/Users/alexm/OneDrive/Desktop/CanonicalTest/CMakeFiles/CanonicalTest.dir
-C:/Users/alexm/OneDrive/Desktop/CanonicalTest/CMakeFiles/test_canonical.dir
-C:/Users/alexm/OneDrive/Desktop/CanonicalTest/CMakeFiles/RUN_TESTS.dir
-C:/Users/alexm/OneDrive/Desktop/CanonicalTest/CMakeFiles/ALL_BUILD.dir
-C:/Users/alexm/OneDrive/Desktop/CanonicalTest/CMakeFiles/ZERO_CHECK.dir

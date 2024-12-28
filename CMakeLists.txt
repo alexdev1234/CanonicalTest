@@ -7,24 +7,25 @@ project(CanonicalTest VERSION 1.0 LANGUAGES CXX)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED true)
 
-# Include vcpkg toolchain file (
-
-# Executable
-add_executable(CanonicalTest src/main.cpp src/ubuntu_image_fetcher.cpp)
-
-# Include directories
-target_include_directories(CanonicalTest PRIVATE src)
-
-# Libcurl
-if(WIN32)
-	set(CMAKE_TOOLCHAIN_FILE "C:/vcpkg/scripts/buildsystems/vcpkg.cmake" CACHE PATH "Path to vcpkg toolchain")
+# Include vcpkg toolchain file
+if(WIN32 OR  WIN64)
+    set(CMAKE_TOOLCHAIN_FILE "C:/vcpkg/scripts/buildsystems/vcpkg.cmake" CACHE PATH "Path to vcpkg toolchain")
 endif()
 
+# Find CURL package (vcpkg handles platform-specific installations)
 find_package(CURL REQUIRED)
+
+# Create the executable
+add_executable(CanonicalTest src/main.cpp src/ubuntu_image_fetcher.cpp)
+
+# Link CURL to the executable
 target_link_libraries(CanonicalTest PRIVATE CURL::libcurl)
 
-#nlohmann/json
-target_include_directories(CanonicalTest PRIVATE external/nlohmann_json/include/nlohmann)
+# Include directories explicitly for CanonicalTest
+target_include_directories(CanonicalTest PRIVATE 
+    src 
+    ${CMAKE_SOURCE_DIR}/external/nlhomann_json/include
+)
 
 # Cross-platform CMake configuration
 if (WIN32)
