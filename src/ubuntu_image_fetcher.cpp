@@ -11,7 +11,6 @@
 #include <nlohmann/json.hpp>
 #include <curl/curl.h>
 
-
 // For ease of use
 using json = nlohmann::json;
 
@@ -52,9 +51,6 @@ static std::string GetHTTP(const std::string& url)
 	{
 		curl_easy_setopt(curl, CURLOPT_URL, url.c_str());
 
-		// Enable verbose output for debugging
-		//curl_easy_setopt(curl, CURLOPT_VERBOSE, 1L);
-
 		// Specify the callback function to handle the response data
 		curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, WriteCallback);
 		curl_easy_setopt(curl, CURLOPT_WRITEDATA, &response);
@@ -92,8 +88,16 @@ static std::string GetHTTP(const std::string& url)
 // Parse Json data and return the parsed object
 static json ParseJsonData()
 {
-	std::string data = GetHTTP(url);
-	return json::parse(data);
+	static json cachedData = nullptr;
+
+	// Cache the parsed data so we don't fetch the same data multiple times
+	if (cachedData.is_null())
+	{
+		std::string data = GetHTTP(url);
+		cachedData = json::parse(data);
+	}
+
+	return cachedData;
 }
 
 // Grab all supported releases
