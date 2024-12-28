@@ -48,11 +48,8 @@ static std::string GetHTTP(const std::string& url)
 	curl_global_init(CURL_GLOBAL_DEFAULT);
 	curl = curl_easy_init();
 
-	std::cout << "Initializing curl" << std::endl;
-
 	if (curl)
 	{
-		std::cout << "curl initialized" << std::endl;
 		curl_easy_setopt(curl, CURLOPT_URL, url.c_str());
 
 		// Enable verbose output for debugging
@@ -95,9 +92,7 @@ static std::string GetHTTP(const std::string& url)
 // Parse Json data and return the parsed object
 static json ParseJsonData()
 {
-	std::cout << "Parsing json data" << std::endl;
 	std::string data = GetHTTP(url);
-	std::cout << "Finished parsing json data" << std::endl;
 	return json::parse(data);
 }
 
@@ -110,12 +105,11 @@ std::vector<std::string> UbuntuImageFetcher::GetSupportedReleases() const
 	for (const auto& item : data["products"].items())
 	{
 		const auto& product = item.value();
-		std::cout << "On product " << product["release_title"].get<std::string>() << std::endl;
+
 		// Check for amd64 architecture and that it is supported
 		if (product.contains("arch") && product["arch"] == "amd64" && 
 			product.contains("supported") && product["supported"] == true)
 		{
-			std::cout << "Adding " << product["release_title"].get<std::string>() << std::endl;
 			// Adding release title to array
 			supportedReleases.push_back(product["release_title"].get<std::string>());
 		}
